@@ -18,7 +18,7 @@ pipeline {
     stage('Checkout') {
       steps {
         git branch: 'main',
-            url: 'https://github.com/VOTRE-UTILISATEUR/bibliotheque-app.git'
+            url: 'https://github.com/rassatl/bibliotheque-app.git'
       }
     }
 
