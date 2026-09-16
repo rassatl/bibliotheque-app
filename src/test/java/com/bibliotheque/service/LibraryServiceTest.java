@@ -81,4 +81,41 @@ class LibraryServiceTest {
         library.borrowBook("1", "m1");
         assertEquals(1, library.listAvailableBooks().size());
     }
+
+    @Test
+    @DisplayName("la recherche par auteur trouve le livre correspondant")
+    void rechercheParAuteurTrouveLeLivre() {
+        assertEquals(1, library.searchByAuthor("camus").size());
+    }
+
+    @Test
+    @DisplayName("supprimer un livre le retire du catalogue")
+    void supprimerLivreLeRetireDuCatalogue() {
+        library.removeBook("1");
+        assertTrue(library.findBookById("1").isEmpty());
+    }
+
+    @Test
+    @DisplayName("emprunter un livre inconnu leve une exception")
+    void emprunterLivreInconnuEchoue() {
+        assertThrows(IllegalArgumentException.class, () -> library.borrowBook("inconnu", "m1"));
+    }
+
+    @Test
+    @DisplayName("emprunter avec un membre inconnu leve une exception")
+    void emprunterAvecMembreInconnuEchoue() {
+        assertThrows(IllegalArgumentException.class, () -> library.borrowBook("1", "inconnu"));
+    }
+
+    @Test
+    @DisplayName("rendre un livre inconnu leve une exception")
+    void rendreLivreInconnuEchoue() {
+        assertThrows(IllegalArgumentException.class, () -> library.returnBook("inconnu"));
+    }
+
+    @Test
+    @DisplayName("rendre un livre non emprunte leve une exception")
+    void rendreLivreNonEmprunteEchoue() {
+        assertThrows(IllegalStateException.class, () -> library.returnBook("1"));
+    }
 }
